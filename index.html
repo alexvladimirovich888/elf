@@ -10,15 +10,18 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', cursive, sans-serif;
+      background: #ffffff;
       overflow: hidden;
       height: 100%;
-      background: linear-gradient(180deg, #1a0f0f 0%, #2d1810 50%, #1a0f0f 100%);
       position: relative;
     }
 
-    html {
-      height: 100%;
+    html, body {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
     }
 
     * {
@@ -26,501 +29,443 @@
     }
 
     .container {
-      height: 100%;
+      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
       position: relative;
-      overflow: hidden;
+      z-index: 1;
     }
 
-    /* Snowfall animation */
+    /* Snowflakes */
     .snowflake {
       position: absolute;
       top: -10px;
-      color: white;
-      font-size: 1em;
-      opacity: 0.8;
+      color: #fff;
+      font-size: 1.5rem;
       animation: fall linear infinite;
-      pointer-events: none;
-      z-index: 100;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+      z-index: 0;
     }
 
     @keyframes fall {
       to {
-        transform: translateY(110vh);
+        transform: translateY(110vh) rotate(360deg);
       }
-    }
-
-    /* Twinkling lights */
-    .lights-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      z-index: 10;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .light {
-      width: 12px;
-      height: 16px;
-      border-radius: 50% 50% 40% 40%;
-      animation: twinkle 1.5s infinite;
-    }
-
-    .light:nth-child(1) { animation-delay: 0s; }
-    .light:nth-child(2) { animation-delay: 0.3s; }
-    .light:nth-child(3) { animation-delay: 0.6s; }
-    .light:nth-child(4) { animation-delay: 0.9s; }
-    .light:nth-child(5) { animation-delay: 1.2s; }
-    .light:nth-child(6) { animation-delay: 0.2s; }
-    .light:nth-child(7) { animation-delay: 0.5s; }
-    .light:nth-child(8) { animation-delay: 0.8s; }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 1; filter: brightness(1); }
-      50% { opacity: 0.4; filter: brightness(0.6); }
     }
 
     /* Header */
     .header {
       text-align: center;
-      padding: 80px 20px 20px 20px;
-      z-index: 5;
+      margin-bottom: 1rem;
     }
 
-    .title {
-      font-size: 3.5em;
+    .main-title {
+      font-size: 3.5rem;
       font-weight: bold;
       margin: 0;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-      letter-spacing: 2px;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+      line-height: 1.2;
     }
 
     .subtitle {
-      font-size: 1.3em;
-      margin: 10px 0 0 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-size: 1.3rem;
+      margin: 0.5rem 0 0 0;
+      font-style: italic;
     }
 
-    /* Factory scene */
-    .factory-scene {
+    /* Main Scene */
+    .scene {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 20px;
-      z-index: 5;
+      margin: 1rem 0;
     }
 
-    .factory-interior {
+    .factory-container {
       position: relative;
       width: 100%;
       max-width: 900px;
       height: 100%;
-      max-height: 400px;
-      border-radius: 20px;
-      padding: 30px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
 
-    /* Conveyor belt */
-    .conveyor-belt {
+    /* Conveyor Belt */
+    .conveyor {
       position: absolute;
-      bottom: 80px;
+      bottom: 20%;
       left: 50%;
       transform: translateX(-50%);
       width: 80%;
-      height: 60px;
+      height: 80px;
+      background: #ffffff;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
+      border: 3px solid #5a3a1a;
       overflow: hidden;
-      box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
     }
 
-    .belt-items {
+    .conveyor-items {
       display: flex;
-      gap: 40px;
-      animation: scroll 8s linear infinite;
+      gap: 100px;
+      animation: conveyorMove 15s linear infinite;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    @keyframes conveyorMove {
+      from {
+        transform: translateX(0) translateY(-50%);
+      }
+      to {
+        transform: translateX(-50%) translateY(-50%);
+      }
     }
 
-    .toy-item {
-      font-size: 2em;
+    .conveyor-item {
+      width: 60px;
+      height: 60px;
       flex-shrink: 0;
     }
 
-    /* Elves */
-    .elves-container {
-      position: absolute;
+    .conveyor-item img {
       width: 100%;
       height: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      pointer-events: none;
+      object-fit: contain;
     }
 
+    /* Elves */
     .elf {
-      font-size: 4em;
-      animation: bounce 2s ease-in-out infinite;
-    }
-
-    .elf:nth-child(1) { animation-delay: 0s; }
-    .elf:nth-child(2) { animation-delay: 0.5s; }
-    .elf:nth-child(3) { animation-delay: 1s; }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* Mischievous elf with sign */
-    .sign-elf {
       position: absolute;
-      top: 50%;
+      width: 120px;
+      height: 120px;
+    }
+
+    .elf img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .elf1 {
+      left: 15%;
+      top: 30%;
+    }
+
+    .elf2 {
+      right: 15%;
+      top: 30%;
+    }
+
+    .elf3 {
       left: 50%;
+      top: 20%;
+      transform: translateX(-50%);
+    }
+
+    /* Sign */
+    .sign {
+      position: absolute;
+      left: 50%;
+      top: 50%;
       transform: translate(-50%, -50%);
-      text-align: center;
+      background: #ffffff;
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      border: 4px solid #c41e3a;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       z-index: 10;
     }
 
-    .elf-character {
-      font-size: 5em;
-      margin-bottom: 10px;
-      animation: wiggle 3s ease-in-out infinite;
-    }
-
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
-    }
-
-    .sign {
-      padding: 15px 25px;
-      border-radius: 10px;
+    .sign-text {
+      font-size: 1.8rem;
       font-weight: bold;
-      font-size: 1.2em;
+      color: #c41e3a;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transform: rotate(-3deg);
-      border: 4px solid;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Tagline and button */
-    .action-section {
+    /* Twinkling Lights */
+    .lights {
+      position: absolute;
+      top: 10%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 2rem;
+    }
+
+    .light {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      animation: twinkle 1.5s ease-in-out infinite;
+    }
+
+    .light:nth-child(odd) {
+      animation-delay: 0.75s;
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.4;
+        transform: scale(0.8);
+      }
+    }
+
+    /* Bottom Section */
+    .bottom-section {
       text-align: center;
-      padding: 20px;
-      z-index: 5;
+      margin-top: 1rem;
     }
 
     .tagline {
-      font-size: 1.1em;
-      margin-bottom: 20px;
+      font-size: 1.2rem;
+      margin: 0 0 1.5rem 0;
       font-style: italic;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
     .naughty-button {
-      padding: 15px 35px;
-      font-size: 1.2em;
+      padding: 1rem 2.5rem;
+      font-size: 1.3rem;
       font-weight: bold;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
       font-family: inherit;
     }
 
     .naughty-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .naughty-button:active {
       transform: translateY(-1px);
     }
 
-    /* Popup */
-    .popup-overlay {
+    /* Modal */
+    .modal {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
     }
 
-    .popup-overlay.active {
+    .modal.active {
       display: flex;
     }
 
-    .popup {
-      padding: 40px;
+    .modal-content {
+      padding: 2.5rem;
       border-radius: 20px;
       text-align: center;
-      max-width: 400px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      animation: popIn 0.3s ease-out;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
     }
 
-    @keyframes popIn {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .popup-icon {
-      font-size: 4em;
-      margin-bottom: 20px;
-    }
-
-    .popup-message {
-      font-size: 1.3em;
+    .modal-title {
+      font-size: 2rem;
       font-weight: bold;
-      margin-bottom: 25px;
+      margin: 0 0 1rem 0;
     }
 
-    .close-button {
-      padding: 12px 30px;
-      font-size: 1em;
+    .modal-text {
+      font-size: 1.3rem;
+      margin: 0 0 2rem 0;
+    }
+
+    .modal-button {
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
       font-weight: bold;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: all 0.3s ease;
       font-family: inherit;
+      transition: all 0.3s ease;
     }
 
-    .close-button:hover {
+    .modal-button:hover {
       transform: scale(1.05);
     }
 
     /* Footer */
     .footer {
       text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-      z-index: 5;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 2.5rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .sign-text {
+        font-size: 1.3rem;
+      }
+
+      .tagline {
+        font-size: 1rem;
+      }
+
+      .naughty-button {
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+      }
+
+      .elf {
+        width: 80px;
+        height: 80px;
+      }
+
+      .conveyor {
+        height: 60px;
+      }
+
+      .conveyor-item {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
- <body>
-  <div class="container"><!-- Twinkling lights -->
-   <div class="lights-container">
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-   </div><!-- Snowflakes -->
-   <div id="snowfall"></div><!-- Header -->
-   <header class="header">
-    <h1 class="title" id="main-title">Elf Toy Factory</h1>
+ <body><!-- Snowflakes -->
+  <div id="snowflakes"></div><!-- Twinkling Lights -->
+  <div class="lights">
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+   <div class="light"></div>
+  </div>
+  <div class="container"><!-- Header -->
+   <div class="header">
+    <h1 class="main-title" id="mainTitle">Elf Toy Factory</h1>
     <p class="subtitle" id="subtitle">Where good traders get gifts… and toxic meme lords get nothing!</p>
-   </header><!-- Factory scene -->
-   <main class="factory-scene">
-    <div class="factory-interior"><!-- Background elves -->
-     <div class="elves-container">
-      <div class="elf">
-       🧝
-      </div>
-      <div class="elf">
-       🧝‍♀️
-      </div>
-      <div class="elf">
-       🧝
-      </div>
-     </div><!-- Conveyor belt -->
-     <div class="conveyor-belt">
-      <div class="belt-items"><span class="toy-item">🎁</span> <span class="toy-item">🪙</span> <span class="toy-item">🎮</span> <span class="toy-item">🪙</span> <span class="toy-item">🧸</span> <span class="toy-item">🪙</span> <span class="toy-item">🎁</span> <span class="toy-item">🪙</span> <span class="toy-item">🎮</span> <span class="toy-item">🪙</span> <span class="toy-item">🧸</span> <span class="toy-item">🪙</span>
-      </div>
-     </div><!-- Mischievous elf with sign -->
-     <div class="sign-elf">
-      <div class="elf-character">
-       🧝‍♂️
-      </div>
-      <div class="sign" id="elf-sign">
-       NO TOYS FOR TOXIC TRADERS!
-      </div>
+   </div><!-- Main Scene -->
+   <div class="scene">
+    <div class="factory-container"><!-- Elves -->
+     <div class="elf elf1"><img src="https://i.postimg.cc/ZKpX5sNZ/ADS-23.png" alt="Elf crafting" onerror="this.src=''; this.alt='Elf image failed to load'; this.style.display='none';">
+     </div>
+     <div class="elf elf2"><img src="https://i.postimg.cc/ZKpX5sNZ/ADS-23.png" alt="Elf working" onerror="this.src=''; this.alt='Elf image failed to load'; this.style.display='none';">
+     </div>
+     <div class="elf elf3"><img src="https://i.postimg.cc/ZKpX5sNZ/ADS-23.png" alt="Mischievous elf" onerror="this.src=''; this.alt='Elf image failed to load'; this.style.display='none';">
+     </div><!-- Sign -->
+     <div class="sign">
+      <p class="sign-text">NO TOYS FOR<br>
+       TOXIC TRADERS!</p>
+     </div><!-- Conveyor Belt -->
+     <div class="conveyor">
+      <div class="conveyor-items" id="conveyorItems"></div>
      </div>
     </div>
-   </main><!-- Action section -->
-   <section class="action-section">
-    <p class="tagline" id="tagline">Be kind, stay merry, and maybe Santa will airdrop you something nice.</p><button class="naughty-button" id="naughty-button">Check Your Naughty Score</button>
-   </section><!-- Footer -->
-   <footer class="footer" id="footer">
-    Made by the Elf DAO | No refunds. Only coal.
-   </footer>
-  </div><!-- Popup overlay -->
-  <div class="popup-overlay" id="popup-overlay">
-   <div class="popup">
-    <div class="popup-icon">
-     🎅
-    </div>
-    <p class="popup-message" id="popup-message">Access Denied. Too many rugs this year.</p><button class="close-button" id="close-button">Close</button>
+   </div><!-- Bottom Section -->
+   <div class="bottom-section">
+    <p class="tagline" id="tagline">Be kind, stay merry, and maybe Santa will airdrop you something nice.</p><button class="naughty-button" id="naughtyButton">Check Your Naughty Score</button>
+   </div><!-- Footer -->
+   <div class="footer">
+    <p id="footerText">Made by the Elf DAO | No refunds. Only coal.</p>
+   </div>
+  </div><!-- Modal -->
+  <div class="modal" id="modal">
+   <div class="modal-content">
+    <h2 class="modal-title">🎅 ACCESS DENIED 🎅</h2>
+    <p class="modal-text">Too many rugs this year.<br>
+     Santa's watching! 👀</p><button class="modal-button" id="closeModal">Try Being Nice</button>
    </div>
   </div>
   <script>
     const defaultConfig = {
-      background_color: "#8B2E2E",
-      surface_color: "#D4AF37",
-      text_color: "#FFFFFF",
-      primary_action_color: "#228B22",
-      secondary_action_color: "#C41E3A",
       main_title: "Elf Toy Factory",
       subtitle: "Where good traders get gifts… and toxic meme lords get nothing!",
-      elf_sign_text: "NO TOYS FOR TOXIC TRADERS!",
       tagline: "Be kind, stay merry, and maybe Santa will airdrop you something nice.",
       button_text: "Check Your Naughty Score",
-      popup_message: "Access Denied. Too many rugs this year.",
       footer_text: "Made by the Elf DAO | No refunds. Only coal.",
-      font_family: "Comic Sans MS",
-      font_size: 16
+      background_color: "#ffffff",
+      title_color: "#c41e3a",
+      subtitle_color: "#165b33",
+      button_color: "#ffd700",
+      button_text_color: "#c41e3a",
+      modal_bg_color: "#ffffff",
+      modal_text_color: "#c41e3a",
+      modal_button_color: "#165b33",
+      modal_button_text_color: "#ffffff",
+      light_color_1: "#ff0000",
+      light_color_2: "#00ff00",
+      light_color_3: "#ffd700"
     };
 
     async function onConfigChange(config) {
-      const backgroundColor = config.background_color || defaultConfig.background_color;
-      const surfaceColor = config.surface_color || defaultConfig.surface_color;
-      const textColor = config.text_color || defaultConfig.text_color;
-      const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
-      const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
-      const customFont = config.font_family || defaultConfig.font_family;
-      const baseSize = config.font_size || defaultConfig.font_size;
-      const baseFontStack = 'Comic Sans MS, Chalkboard SE, Comic Neue, cursive, sans-serif';
-
-      document.body.style.background = `linear-gradient(180deg, ${backgroundColor} 0%, ${adjustBrightness(backgroundColor, 20)} 50%, ${backgroundColor} 100%)`;
-      
-      const factoryInterior = document.querySelector('.factory-interior');
-      factoryInterior.style.background = `linear-gradient(135deg, ${adjustBrightness(backgroundColor, 30)} 0%, ${adjustBrightness(backgroundColor, 50)} 100%)`;
-      
-      const conveyorBelt = document.querySelector('.conveyor-belt');
-      conveyorBelt.style.background = `linear-gradient(180deg, ${adjustBrightness(surfaceColor, -20)} 0%, ${surfaceColor} 100%)`;
-      
-      const sign = document.querySelector('.sign');
-      sign.style.backgroundColor = secondaryActionColor;
-      sign.style.color = textColor;
-      sign.style.borderColor = adjustBrightness(secondaryActionColor, -30);
-      
-      const lights = document.querySelectorAll('.light');
-      const lightColors = [secondaryActionColor, primaryActionColor, surfaceColor];
-      lights.forEach((light, index) => {
-        light.style.backgroundColor = lightColors[index % lightColors.length];
-      });
-      
-      document.querySelector('.title').style.color = surfaceColor;
-      document.querySelector('.subtitle').style.color = textColor;
-      document.querySelector('.tagline').style.color = textColor;
-      document.querySelector('.footer').style.color = textColor;
-      
-      const naughtyButton = document.getElementById('naughty-button');
-      naughtyButton.style.backgroundColor = primaryActionColor;
-      naughtyButton.style.color = textColor;
-      
-      const popup = document.querySelector('.popup');
-      popup.style.backgroundColor = adjustBrightness(backgroundColor, 40);
-      popup.style.color = textColor;
-      
-      const closeButton = document.getElementById('close-button');
-      closeButton.style.backgroundColor = secondaryActionColor;
-      closeButton.style.color = textColor;
-
-      document.querySelector('.title').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.subtitle').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.sign').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.tagline').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.naughty-button').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.popup-message').style.fontFamily = `${customFont}, ${baseFontStack}`;
-      document.querySelector('.footer').style.fontFamily = `${customFont}, ${baseFontStack}`;
-
-      document.querySelector('.title').style.fontSize = `${baseSize * 2.2}px`;
-      document.querySelector('.subtitle').style.fontSize = `${baseSize * 0.8}px`;
-      document.querySelector('.sign').style.fontSize = `${baseSize * 0.75}px`;
-      document.querySelector('.tagline').style.fontSize = `${baseSize * 0.7}px`;
-      document.querySelector('.naughty-button').style.fontSize = `${baseSize * 0.75}px`;
-      document.querySelector('.popup-message').style.fontSize = `${baseSize * 0.8}px`;
-      document.querySelector('.footer').style.fontSize = `${baseSize * 0.55}px`;
-
-      document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
       document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
-      document.getElementById('elf-sign').textContent = config.elf_sign_text || defaultConfig.elf_sign_text;
       document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
-      document.getElementById('naughty-button').textContent = config.button_text || defaultConfig.button_text;
-      document.getElementById('popup-message').textContent = config.popup_message || defaultConfig.popup_message;
-      document.getElementById('footer').textContent = config.footer_text || defaultConfig.footer_text;
-    }
+      document.getElementById('naughtyButton').textContent = config.button_text || defaultConfig.button_text;
+      document.getElementById('footerText').textContent = config.footer_text || defaultConfig.footer_text;
 
-    function adjustBrightness(hex, percent) {
-      const num = parseInt(hex.replace('#', ''), 16);
-      const r = Math.min(255, Math.max(0, (num >> 16) + percent));
-      const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + percent));
-      const b = Math.min(255, Math.max(0, (num & 0x0000FF) + percent));
-      return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
-    }
-
-    function createSnowflakes() {
-      const snowfall = document.getElementById('snowfall');
-      const snowflakeCount = 30;
+      document.body.style.background = config.background_color || defaultConfig.background_color;
+      document.getElementById('mainTitle').style.color = config.title_color || defaultConfig.title_color;
+      document.getElementById('subtitle').style.color = config.subtitle_color || defaultConfig.subtitle_color;
       
-      for (let i = 0; i < snowflakeCount; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'snowflake';
-        snowflake.textContent = '❄';
-        snowflake.style.left = Math.random() * 100 + '%';
-        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        snowflake.style.animationDelay = Math.random() * 5 + 's';
-        snowflake.style.fontSize = (Math.random() * 0.5 + 0.5) + 'em';
-        snowfall.appendChild(snowflake);
-      }
+      const button = document.getElementById('naughtyButton');
+      button.style.background = config.button_color || defaultConfig.button_color;
+      button.style.color = config.button_text_color || defaultConfig.button_text_color;
+
+      const modalContent = document.querySelector('.modal-content');
+      modalContent.style.background = config.modal_bg_color || defaultConfig.modal_bg_color;
+      document.querySelector('.modal-title').style.color = config.modal_text_color || defaultConfig.modal_text_color;
+      document.querySelector('.modal-text').style.color = config.modal_text_color || defaultConfig.modal_text_color;
+
+      const modalButton = document.getElementById('closeModal');
+      modalButton.style.background = config.modal_button_color || defaultConfig.modal_button_color;
+      modalButton.style.color = config.modal_button_text_color || defaultConfig.modal_button_text_color;
+
+      const lights = document.querySelectorAll('.light');
+      const lightColors = [
+        config.light_color_1 || defaultConfig.light_color_1,
+        config.light_color_2 || defaultConfig.light_color_2,
+        config.light_color_3 || defaultConfig.light_color_3
+      ];
+      lights.forEach((light, index) => {
+        light.style.background = lightColors[index % lightColors.length];
+      });
     }
-
-    document.getElementById('naughty-button').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('popup-overlay').classList.add('active');
-    });
-
-    document.getElementById('close-button').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('popup-overlay').classList.remove('active');
-    });
-
-    document.getElementById('popup-overlay').addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.classList.remove('active');
-      }
-    });
-
-    createSnowflakes();
 
     if (window.elementSdk) {
       window.elementSdk.init({
@@ -536,61 +481,104 @@
               }
             },
             {
-              get: () => config.surface_color || defaultConfig.surface_color,
+              get: () => config.title_color || defaultConfig.title_color,
               set: (value) => {
-                config.surface_color = value;
-                window.elementSdk.setConfig({ surface_color: value });
+                config.title_color = value;
+                window.elementSdk.setConfig({ title_color: value });
               }
             },
             {
-              get: () => config.text_color || defaultConfig.text_color,
+              get: () => config.button_color || defaultConfig.button_color,
               set: (value) => {
-                config.text_color = value;
-                window.elementSdk.setConfig({ text_color: value });
+                config.button_color = value;
+                window.elementSdk.setConfig({ button_color: value });
               }
             },
             {
-              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              get: () => config.modal_button_color || defaultConfig.modal_button_color,
               set: (value) => {
-                config.primary_action_color = value;
-                window.elementSdk.setConfig({ primary_action_color: value });
+                config.modal_button_color = value;
+                window.elementSdk.setConfig({ modal_button_color: value });
               }
             },
             {
-              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              get: () => config.light_color_1 || defaultConfig.light_color_1,
               set: (value) => {
-                config.secondary_action_color = value;
-                window.elementSdk.setConfig({ secondary_action_color: value });
+                config.light_color_1 = value;
+                window.elementSdk.setConfig({ light_color_1: value });
               }
             }
           ],
           borderables: [],
-          fontEditable: {
-            get: () => config.font_family || defaultConfig.font_family,
-            set: (value) => {
-              config.font_family = value;
-              window.elementSdk.setConfig({ font_family: value });
-            }
-          },
-          fontSizeable: {
-            get: () => config.font_size || defaultConfig.font_size,
-            set: (value) => {
-              config.font_size = value;
-              window.elementSdk.setConfig({ font_size: value });
-            }
-          }
+          fontEditable: undefined,
+          fontSizeable: undefined
         }),
         mapToEditPanelValues: (config) => new Map([
           ["main_title", config.main_title || defaultConfig.main_title],
           ["subtitle", config.subtitle || defaultConfig.subtitle],
-          ["elf_sign_text", config.elf_sign_text || defaultConfig.elf_sign_text],
           ["tagline", config.tagline || defaultConfig.tagline],
           ["button_text", config.button_text || defaultConfig.button_text],
-          ["popup_message", config.popup_message || defaultConfig.popup_message],
           ["footer_text", config.footer_text || defaultConfig.footer_text]
         ])
       });
     }
+
+    // Create snowflakes
+    const snowflakesContainer = document.getElementById('snowflakes');
+    for (let i = 0; i < 30; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.textContent = '❄';
+      snowflake.style.left = Math.random() * 100 + '%';
+      snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      snowflake.style.animationDelay = Math.random() * 5 + 's';
+      snowflake.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+      snowflakesContainer.appendChild(snowflake);
+    }
+
+    // Create conveyor items
+    const conveyorItems = document.getElementById('conveyorItems');
+    const giftImages = [
+      'https://i.postimg.cc/FHstCgYp/ADS-26.png',
+      'https://i.postimg.cc/rpKBMVC5/ADS-25.png',
+      'https://i.postimg.cc/5tTZthst/ADS-24.png'
+    ];
+
+    for (let i = 0; i < 20; i++) {
+      const item = document.createElement('div');
+      item.className = 'conveyor-item';
+      const img = document.createElement('img');
+      img.src = giftImages[i % giftImages.length];
+      img.alt = 'Gift';
+      img.onerror = function() {
+        this.src = '';
+        this.alt = 'Gift image failed to load';
+        this.style.display = 'none';
+      };
+      item.appendChild(img);
+      conveyorItems.appendChild(item);
+    }
+
+    // Modal functionality
+    const modal = document.getElementById('modal');
+    const naughtyButton = document.getElementById('naughtyButton');
+    const closeModalButton = document.getElementById('closeModal');
+
+    naughtyButton.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+
+    closeModalButton.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    onConfigChange(defaultConfig);
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999ce40926f6bc1c',t:'MTc2MjM1MTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999d0d6d956dbc1c',t:'MTc2MjM1MzA2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
